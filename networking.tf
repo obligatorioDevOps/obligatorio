@@ -26,6 +26,7 @@ vpc_cidr = "10.0.0.0/16"
 }
 
 resource "aws_eip" "nat" {
+  count = 3
   vpc   = true
 }
 module "vpc" {
@@ -43,9 +44,9 @@ module "vpc" {
   create_igw          = true
 
   enable_nat_gateway  = true
-  single_nat_gateway  = true
+  single_nat_gateway  = false
   reuse_nat_ips       = true  
-  external_nat_ip_ids = "${aws_eip.nat.id}"                   
+  external_nat_ip_ids = "${aws_eip.nat.*.id}"                   
        
   
 
