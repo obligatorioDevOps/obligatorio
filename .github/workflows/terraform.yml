@@ -33,7 +33,7 @@ jobs:
         run: |
           terraform init -input=false          
 
-      - name: Plan Terraform
+      - name: Validate Terraform
         id: plan
         continue-on-error: true
         run: |
