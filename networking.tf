@@ -25,8 +25,9 @@ vpc_cidr = "10.0.0.0/16"
 
 }
 
-
-
+resource "aws_eip" "nat" {
+  vpc   = true
+}
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -43,7 +44,8 @@ module "vpc" {
 
   enable_nat_gateway  = true
   single_nat_gateway  = true
-  reuse_nat_ips       = true                    
+  reuse_nat_ips       = true  
+  external_nat_ip_ids = "${aws_eip.nat.id}"                   
        
   
 
