@@ -37,7 +37,7 @@ jobs:
         id: plan
         continue-on-error: true
         run: |
-          terraform validate -input=false -no-color
+          terraform validate  -no-color
     
   plan:
     name: Plan
