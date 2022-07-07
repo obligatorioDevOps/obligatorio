@@ -24,13 +24,13 @@ terraform {
     key     = "obligatorio.tfstate"
     region  = "us-east-1"
     encrypt = true
-    profile = "2so"
+    
   }
 }
 
 provider "aws" {
   region  = "us-east-1"
-  profile = "2so"
+  
 }
 
 data "aws_partition" "current" {}
