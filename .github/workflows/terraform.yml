@@ -6,7 +6,7 @@ on:
       - main
 jobs:
 
-  
+    
   plan:
     name: Plan
     env:
@@ -38,4 +38,6 @@ jobs:
         id: plan
         continue-on-error: true
         run: |
-          terraform plan -input=false -no-color          
+          terraform plan -input=false -no-color    
+
+        
