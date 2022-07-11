@@ -74,10 +74,10 @@ spec:
         image: ortdevops2022/payments-service-example
         resources:
           requests:
-            memory: "100Mi"
+            memory: "500Mi"
             cpu: "250m"
           limits:
-            memory: "128Mi"
+            memory: "1000Mi"
             cpu: "500m"
         imagePullPolicy: IfNotPresent
         ports:
@@ -105,10 +105,10 @@ spec:
         image: ortdevops2022/products-service-example
         resources:
           requests:
-            memory: "100Mi"
+            memory: "500Mi"
             cpu: "250m"
           limits:
-            memory: "128Mi"
+            memory: "1000Mi"
             cpu: "500m"
         imagePullPolicy: IfNotPresent
         ports:
@@ -136,10 +136,10 @@ spec:
         image: ortdevops2022/shipping-service-example
         resources:
           requests:
-            memory: "100Mi"
+            memory: "500Mi"
             cpu: "250m"
           limits:
-            memory: "128Mi"
+            memory: "1000Mi"
             cpu: "500m"
         imagePullPolicy: IfNotPresent
         ports:
@@ -166,10 +166,10 @@ spec:
         image: ortdevops2022/orders-service-example
         resources:
           requests:
-            memory: "100Mi"
+            memory: "500Mi"
             cpu: "250m"
           limits:
-            memory: "128Mi"
+            memory: "1000Mi"
             cpu: "500m"
         args: ["http://payments-app", "http://products-app", "http://shipping-app"]
         imagePullPolicy: IfNotPresent
