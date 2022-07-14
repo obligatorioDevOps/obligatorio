@@ -73,7 +73,7 @@ jobs:
         run: |
           terraform plan -input=false -no-color  
 
-      - name: Plan Terraform
+      - name: Apply Terraform
         id: plan
         continue-on-error: true
         run: |
