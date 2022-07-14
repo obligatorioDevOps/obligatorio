@@ -31,27 +31,7 @@ module "eks" {
     }
   }
 
- cluster_security_group_additional_rules = {
-    ingress_nodes_karpenter_ports_tcp = {
-      description                = "Karpenter readiness"
-      protocol                   = "tcp"
-      from_port                  = 8443
-      to_port                    = 8443
-      type                       = "ingress"
-      source_node_security_group = true
-    }
-  }
-  
-  node_security_group_additional_rules = {
-    aws_lb_controller_webhook = {
-      description                   = "Cluster API to AWS LB Controller webhook"
-      protocol                      = "all"
-      from_port                     = 9443
-      to_port                       = 9443
-      type                          = "ingress"
-      source_cluster_security_group = true
-    }
-  }  
+
   
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
@@ -96,14 +76,11 @@ module "eks" {
     Terraform = "true"
     Project = "${var.project_name}"
     Environment = "${terraform.workspace}"
-    "karpenter.sh/discovery" = local.cluster_name
+    
   }
 }
 
-resource "aws_iam_instance_profile" "karpenter" {
-  name = "KarpenterNodeInstanceProfile-${local.cluster_name}"
-  role = module.eks.eks_managed_node_groups["initial"].iam_role_name
-}
+
 
 provider "kubectl" {
   apply_retry_count      = 5
@@ -118,47 +95,4 @@ provider "kubectl" {
   }
 }
 
-resource "kubectl_manifest" "karpenter_provisioner" {
-  yaml_body = <<-YAML
-  apiVersion: karpenter.sh/v1alpha5
-  kind: Provisioner
-  metadata:
-    name: default
-  spec:
-    requirements:
-      - key: karpenter.sh/capacity-type
-        operator: In
-        values: ["spot"]
-    limits:
-      resources:
-        cpu: 1000
-    provider:
-      subnetSelector:
-        karpenter.sh/discovery: ${local.cluster_name}
-      securityGroupSelector:
-        karpenter.sh/discovery: ${local.cluster_name}
-      tags:
-        karpenter.sh/discovery: ${local.cluster_name}
-    ttlSecondsAfterEmpty: 30
-  YAML
 
-  depends_on = [
-    helm_release.karpenter
-  ]
-}
-
-resource "kubectl_manifest" "aws-load-balancer-controller-serviceaccount" {
-  yaml_body = <<-YAML
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  labels:
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/name: aws-load-balancer-controller
-  name: aws-load-balancer-controller
-  namespace: kube-system
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::6834361605233:role/AmazonEKSLoadBalancerControllerRole
-  YAML
-  
-}
