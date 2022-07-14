@@ -1,7 +1,7 @@
 name: Plan / Test On PR
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
@@ -75,7 +75,7 @@ jobs:
 
       - name: Apply Terraform
         id: plan
-        continue-on-error: true
+        continue-on-error: false
         run: |
           terraform apply -auto-approve
 
