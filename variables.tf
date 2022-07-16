@@ -2,6 +2,8 @@ variable "aws_region" {}
 
 variable "project_name" {}
 
+variable "company_name" {}
+
 variable "vpc_cidr" {}
 
 variable "profile" {}

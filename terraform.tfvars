@@ -1,4 +1,6 @@
-project_name = "obligatario"
+company_name = "2so"
+
+project_name = "obligatorio"
 
 aws_region = "us-east-1"
 
@@ -14,4 +16,4 @@ profile = "2so"
 
 ## Route53 ##
 
-route53_domain_name = "ort-obligatorio.com"
+route53_domain_name = "2soapp.com"

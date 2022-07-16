@@ -65,12 +65,15 @@ module "eks" {
 
   aws_auth_roles = [
     {
-      rolearn  = "arn:aws:iam::683436160523:role/AWSReservedSSO_Admin_d65c2f88bffdc84b"
-      username = "Admin:{{SessionName}}"
+      rolearn  = "arn:aws:iam::813224394680:group/2soAdmin"
+      usergroup = "2soAdmin"
       groups   = ["system:masters"]
     }
-    
+  
+   
   ]
+
+  
   
   tags = {
     Terraform = "true"
@@ -81,18 +84,5 @@ module "eks" {
 }
 
 
-
-provider "kubectl" {
-  apply_retry_count      = 5
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  load_config_file       = false
-
-  exec {
-    api_version = "client.authentication.k8s.io/v1alpha1"
-    command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
-  }
-}
 
 
