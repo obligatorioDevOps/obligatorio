@@ -11,23 +11,9 @@ module "sg_external_alb" {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
-      description = "external to public subnet1"
-      cidr_blocks = "${module.vpc.public_subnets_cidr_blocks[0]}"
-    },
-    {
-      from_port   = 80
-      to_port     = 80
-      protocol    = "tcp"
-      description = "external to public subnet2"
-      cidr_blocks = "${module.vpc.public_subnets_cidr_blocks[1]}"
-    },
-    {
-      from_port   = 80
-      to_port     = 80
-      protocol    = "tcp"
-      description = "external to public subnet3"
-      cidr_blocks = "${module.vpc.public_subnets_cidr_blocks[2]}"
-    },
+      description = "external to LB"
+      cidr_blocks = "0.0.0.0/0"
     
-  ]
+    }
+    ]
 }
