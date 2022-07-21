@@ -16,9 +16,13 @@ Cada repositorio de los microservicios debe tener instalados los siguientes GitH
 
 Se obtienen en `/obligatorio/workflows` y deben ir en la carpeta `microservicio/.github` de cada repositorio
 
-ci_workflow - Contiene el flujo del CI
-cd_workflow - Contiene el flujo del CD
-rel_work - Realiza el release de un feature
+- ci_workflow - Contiene el flujo del CI
+- cd_workflow - Contiene el flujo del CD
+- rel_work - Realiza el release de un feature
+
+Se obtienen en `/obligatorio/workflows` y deben ir en la carpeta `k8s/.github` del repositorio de k8s
+
+- main.yml - Realiza despliegue a EKS
 
 ### Secrets
 
