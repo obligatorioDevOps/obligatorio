@@ -53,14 +53,13 @@ module "eks" {
       instance_types = ["t3.medium"]
       capacity_type  = "SPOT" # ON_DEMAND or SPOT
     }
-    /* green = {    
-    } */
+
   }
 
 
   # aws-auth configmap
   manage_aws_auth_configmap = true
-  #create_aws_auth_configmap = true
+ 
   
 
   aws_auth_roles = [

@@ -12,10 +12,6 @@ public_subnet_1 = cidrsubnet("${local.vpc_cidr}", 8, 11)
 public_subnet_2 = cidrsubnet("${local.vpc_cidr}", 8, 12)
 public_subnet_3 = cidrsubnet("${local.vpc_cidr}", 8, 13)
 
-/* #Database Subnets
-database_subnet_1 = cidrsubnet("${local.vpc_cidr}", 8, 21)
-database_subnet_2 = cidrsubnet("${local.vpc_cidr}", 8, 22)
-database_subnet_3 = cidrsubnet("${local.vpc_cidr}", 8, 23) */
 
 project_name = "obligatorio"
 
@@ -38,7 +34,7 @@ module "vpc" {
   azs             = ["${local.aws_region}a", "${local.aws_region}b", "${local.aws_region}c"]
   private_subnets = ["${local.private_subnet_1}", "${local.private_subnet_2}", "${local.private_subnet_3}"]
   public_subnets  = ["${local.public_subnet_1}", "${local.public_subnet_2}", "${local.public_subnet_3}"]
-  #database_subnets = ["${local.database_subnet_1}", "${local.database_subnet_2}", "${local.database_subnet_3}"]
+  
 
   create_vpc          = true
   create_igw          = true
