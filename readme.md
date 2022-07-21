@@ -1,5 +1,4 @@
-﻿
-# README
+﻿# README
 
 ## Repositorios
 - [obligatorio](https://github.com/obligatorioDevOps/obligatorio) - Repositorio DevOps. Contiene la documentación del proyecto y configuración de Terraform
@@ -348,12 +347,12 @@ Se asignan permisos al cluster para un grupo de usuario aws/iam llamado 2soAdmin
 
 Diagrama de security groups.
 
-# Kubernet
+## Kubernet
 
-## Microservicios
+### Microservicios
 ![Diagrama microservicios](https://github.com/obligatorioDevOps/obligatorio/blob/main/files/docs/obligatorio.png?raw=true)
 
-## Nginx
+### Nginx
 
 ![Diagrama conectividad](https://github.com/obligatorioDevOps/obligatorio/blob/main/files/docs/Obligatorio%20conectividad.png?raw=true)
 
@@ -375,7 +374,7 @@ spec:
     targetPort: 80
 ```
 
-## Configuración de Nginx
+#### Configuración de Nginx
 ```
 server {
     access\_log /var/log/nginx/api\_access.log main; 
@@ -400,7 +399,7 @@ server {
 }
 ```
 
-## Orders-service-example
+### Orders-service-example
 
 Microservicio que se encarga de generar las ordenes de compra. Este microservico está configurado en modo ClusterIp y tiene una ip interna fija, el contenedor escucha en el puerto 8080 y exponemos el puerto 80. Este microservicio necesita saber de antemano la url o ips de los servicios products, shipping y payments. Por esta razón se utilizan IPs fijas en la solución. (Lo malo es que no nos permite escalar en cantidad de pods, para solventar esto se debe pedir al área de desarrollo que reconsidere la arquitectura)
 
@@ -455,261 +454,162 @@ spec:
         - containerPort: 8080
 ```
 
-
-
-## Payments-service-example
+### Payments-service-example
 
 Microservicio que se encarga de generar los pagos. Este microservico está configurado en modo ClusterIp y tiene una ip interna fija, el contenedor escucha en el puerto 8080 y exponemos el puerto 80, el servicio orders se conecta directamente a este servicio.
 ``` yml
 apiVersion: v1
-
 kind: Service
-
 metadata:
-
   name: payments-service
 
 spec:
-
   clusterIP: 172.20.10.11
-
   selector:
-
     app: payments-app
 
   ports:
-
   - protocol: "TCP"
-
     port: 80
-
     targetPort: 8080
 
 apiVersion: apps/v1
-
 kind: Deployment
-
 metadata:
-
   name: payments-app
 
 spec:
-
   selector:
-
     matchLabels:
-
       app: payments-app
 
   replicas: 1
-
   template:
-
     metadata:
-
       labels:
-
         app: payments-app
 
     spec:
-
       containers:
-
       - name: payments-app
-
         image: ortdevops2022/payments-service-example
-
         resources:
-
           requests:
-
             memory: "500Mi"
-
             cpu: "250m"
 
           limits:
-
             memory: "1000Mi"
-
             cpu: "500m"
 
         imagePullPolicy: Always
 
         ports:
-
         - containerPort: 8080
 ```
 
-
-## Products-service-example
+### Products-service-example
 
 Microservicio que se encarga de listar los productos. Este microservico está configurado en modo ClusterIp y tiene una ip interna fija, el contenedor escucha en el puerto 8080 y exponemos el puerto 80. 
 
 ``` yml
 apiVersion: v1
-
 kind: Service
-
 metadata:
-
   name: products-service
 
 spec:
-
   clusterIP: 172.20.10.13
-
   selector:
-
     app: products-app
 
   ports:
-
   - protocol: "TCP"
-
     port: 80
-
     targetPort: 8080
 
 apiVersion: apps/v1
-
 kind: Deployment
-
 metadata:
-
   name: products-app
 
 spec:
-
   selector:
-
     matchLabels:
-
       app: products-app
-
   replicas: 1
-
   template:
-
     metadata:
-
       labels:
-
         app: products-app
 
     spec:
-
       containers:
-
       - name: products-app
-
         image: ortdevops2022/products-service-example
-
         resources:
-
           requests:
-
             memory: "500Mi"
-
             cpu: "250m"
-
           limits:
-
             memory: "1000Mi"
-
             cpu: "500m"
-
         imagePullPolicy: Always
-
         ports:
-
         - containerPort: 8080
-
 ```
 
-## Shipping-service-example
-
+### Shipping-service-example
 
 Microservicio que se encarga de listar los envíos. Este microservico está configurado en modo ClusterIp y tiene una ip interna fija, el contenedor escucha en el puerto 8080 y exponemos el puerto 80. 
 
-```
+``` yml
 apiVersion: v1
-
 kind: Service
-
 metadata:
-
   name: shipping-service
 
 spec:
-
   clusterIP: 172.20.10.12
-
   selector:
-
     app: shipping-app
 
   ports:
-
   - protocol: "TCP"
-
     port: 80
-
     targetPort: 8080
-
+	
 apiVersion: apps/v1
-
 kind: Deployment
 
 metadata:
-
   name: shipping-app
 
 spec:
-
   selector:
-
     matchLabels:
-
       app: shipping-app
-
   replicas: 1
-
   template:
-
     metadata:
-
       labels:
-
         app: shipping-app
 
     spec:
-
       containers:
-
       - name: shipping-app
-
         image: ortdevops2022/shipping-service-example
-
         resources:
-
           requests:
-
             memory: "500Mi"
-
             cpu: "250m"
-
+			
           limits:
-
             memory: "1000Mi"
-
             cpu: "500m"
-
         imagePullPolicy: Always
-
         ports:
-
         - containerPort: 8080
-
 ```
 
 ## Reportes Sonarcloud
@@ -720,11 +620,11 @@ spec:
 
 ![enter image description here](https://github.com/obligatorioDevOps/obligatorio/blob/main/files/docs/tests.jpeg?raw=true)
 
-## Flujo de trabajo entre ramas
+## Flujos de trabajo
+
+### Flujo de trabajo entre ramas
 
 ![enter image description here](https://github.com/obligatorioDevOps/obligatorio/blob/main/files/docs/git_flow-proyecto.png?raw=true)
-
-## Flujos de trabajo
 
 ### CICD - Microservicios
 
