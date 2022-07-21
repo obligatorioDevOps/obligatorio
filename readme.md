@@ -20,6 +20,17 @@ Se obtienen en `/obligatorio/workflows` y deben ir en la carpeta `microservicio/
 - cd_workflow - Contiene el flujo del CD
 - rel_work - Realiza el release de un feature
 
+En los workflows ci_workflow y cd_workflow se necesita proveer un valor de ambiente "endpoint" por cada microservicio instalado para que sea reutilizable:
+
+#### Valores
+
+| Microservicio | Valor |
+| -- | -- |
+| products-service-example | products |
+| payments-service-example | payments |
+| orders-service-example | orders |
+| shipping-service-example | shipping |
+
 Se obtienen en `/obligatorio/workflows` y deben ir en la carpeta `k8s/.github` del repositorio de k8s
 
 - main.yml - Realiza despliegue a EKS
@@ -635,3 +646,12 @@ spec:
 ### CICD - DevOps
 
 ![enter image description here](https://github.com/obligatorioDevOps/obligatorio/blob/main/files/docs/diagramas-CICD%20DevOps.drawio.png?raw=true)
+
+## Alertas Telegram
+
+Es posible configurar un bot para crear alertas en un canal de Telegram a medida que un commit avanza por el flujo CICD
+
+Para esto es necesario crear un canal y un bot (https://core.telegram.org/bots). Luego se agrega el id de canal y token de bot a los secrets de cada repositorio en el que se desee alertar.
+
+![enter image description here](https://github.com/obligatorioDevOps/obligatorio/blob/main/files/docs/tel_alert.PNG?raw=true)
+
