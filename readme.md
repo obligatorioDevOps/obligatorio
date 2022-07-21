@@ -578,7 +578,7 @@ spec:
   - protocol: "TCP"
     port: 80
     targetPort: 8080
-	
+
 apiVersion: apps/v1
 kind: Deployment
 
@@ -594,7 +594,6 @@ spec:
     metadata:
       labels:
         app: shipping-app
-
     spec:
       containers:
       - name: shipping-app
@@ -603,7 +602,6 @@ spec:
           requests:
             memory: "500Mi"
             cpu: "250m"
-			
           limits:
             memory: "1000Mi"
             cpu: "500m"
