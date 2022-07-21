@@ -64,8 +64,4 @@ jobs:
             message: |
               ${{ github.actor }} / [ ${{ github.repository }} ]
               📢 Pull request automatically merged into develop branch 📢       
-  trigger-plan:
-      name: Trigger plan
-      uses: ./.github/workflows/terraform_plan.yml
-      needs: [ automatic-merge-pr ]      
-      secrets: inherit
+
