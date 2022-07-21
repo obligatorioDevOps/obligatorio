@@ -1,7 +1,14 @@
 name: Terraform Plan
 
 on:
-  workflow_call:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+    branches:
+      - staging
 
 jobs:
     terraform-plan:    
